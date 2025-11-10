@@ -1,6 +1,9 @@
 #include "utils/matrix_utils.h"
 #include "gf2p/gf2p.h"
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
 using namespace Eigen;
 
 std::vector<std::pair<int, int>> getNonZeroPositions(const MatrixXi& mat) {
@@ -61,6 +64,88 @@ void printNonbinaryMatrix(
             std::cout << std::endl;
         }
     }
+}
+
+bool writeUbsAlistNonBinary(
+    const Eigen::MatrixXi& H_values,
+    int gfOrder,
+    const std::string& filepath) {
+
+    const int M = H_values.rows();
+    const int N = H_values.cols();
+
+    // 统计列/行度数
+    std::vector<int> dv(N, 0);
+    std::vector<int> dc(M, 0);
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < N; ++j) {
+            if (H_values(i, j) != 0) {
+                dc[i]++;
+                dv[j]++;
+            }
+        }
+    }
+
+    const int cmax = dv.empty() ? 0 : *std::max_element(dv.begin(), dv.end());
+    const int rmax = dc.empty() ? 0 : *std::max_element(dc.begin(), dc.end());
+
+    std::ofstream out(filepath);
+    if (!out.is_open()) {
+        std::cerr << "Failed to open file for writing: " << filepath << std::endl;
+        return false;
+    }
+
+    // Header: N M GF
+    out << N << " " << M << " " << gfOrder << "\n";
+    // Max column/row weight
+    out << cmax << " " << rmax << "\n";
+
+    // Column degrees
+    for (int j = 0; j < N; ++j) {
+        out << dv[j] << (j + 1 < N ? " " : "\n");
+    }
+    // Row degrees
+    for (int i = 0; i < M; ++i) {
+        out << dc[i] << (i + 1 < M ? " " : "\n");
+    }
+
+    // Column-wise placeholder (cmax pairs per column, ignored by decoder)
+    for (int j = 0; j < N; ++j) {
+        for (int k = 0; k < cmax; ++k) {
+            out << 0 << " " << 0;
+            if (k + 1 < cmax) {
+                out << " ";
+            }
+        }
+        out << "\n";
+    }
+
+    // Row-wise data: each row has rmax pairs (column_index, GF_value)
+    for (int i = 0; i < M; ++i) {
+        int written = 0;
+        for (int j = 0; j < N; ++j) {
+            int val = H_values(i, j);
+            if (val != 0) {
+                // NB-LDPC expects 1-based column indices
+                out << (j + 1) << " " << val;
+                written++;
+                if (written < rmax) {
+                    out << " ";
+                }
+            }
+        }
+        // Fill remaining slots with zeros
+        for (int k = written; k < rmax; ++k) {
+            out << 0 << " " << 0;
+            if (k + 1 < rmax) {
+                out << " ";
+            }
+        }
+        out << "\n";
+    }
+
+    out.close();
+    return true;
 }
 
 void printAsHexLog(

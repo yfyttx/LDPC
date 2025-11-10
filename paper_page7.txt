@@ -1,0 +1,55 @@
+KASAI et al. : QUANTUM ERROR CORRECTION BEYOND THE BOUNDED DISTANCE DECODING LIMIT 1229
+Fig. 5. Performance of the proposed CSS code pair compared with the best CSS codes so far from [10], [11] and [12] over the depolarizing channel
+with marginal ﬂip probability ofand errors. Each point is plotted at which the block probabilities of both two constituent codes are . The block
+probability of the entire CSS code is . The Shannon limit of the depolarizing channel: ,
+where is the binary entropy function. The curve labelled S2 is the achievable quantum rate if the correlations between errors and errors are neglected:
+. The curve labeled BDD is the performance limit when the bounded distance decoder is employed and the correlations between errors and
+errors are neglected. . The code length is qubits. The proposed codes are de ﬁned over .
+with ,a n d . Secondly, by the scheme described in
+Section II, construct w nonbinary matrices and
+over .F i n a l l y ,b yt h es c h e m ed e s c r i b e di nS e c t i o nI I - C ,
+we have binary matrices and .T h u s ,w e
+obtain and are de ﬁned by the parity-check matrices and
+, respectively. Note that and can not only be viewed
+as binary codes de ﬁned by and b u ta l s ob ev i e w e da s
+nonbinary codes de ﬁned by and . The code length of the
+proposed CSS code is given as qubits or equivalently
+symbols. The quantum rate of the proposed CSS code
+is given as
+Fig. 4 shows the block error pr obability of the constituent
+codes and of the proposed CSS code pair over the
+depolarizing channel with marginal ﬂip probability ofand
+errors. Parameter are chosen a n d1 4f o r
+and 5/7, respectively. The depolarizing prob-
+ability is given by . The correlations between errors
+and errors are neglected. Due to the symmetry of construc-
+tion of and , the block error probability of the constituent
+codes and are almost the same; hence, we plot the block
+error probability of either or . It is observed that for ﬁxed
+and , the codes with larger code length tend to have
+higher error ﬂoors. This is due to the fact that the proposed codes
+have poor minimum distance which is upper-bounded by .
+The error ﬂoors can be improved by using larger ,i . e . ,l a r g e r
+ﬁeld , which leads to the requir ements of more complex
+decoding computations ,w h e r e .Fig. 5 compares the proposed quantum codes with the best
+quantum codes so far. The horizontal axis is the ﬂip probability
+at which the block error probability of one of the constituentclassical code is
+. The vertical axis is the quantum
+rate of quantum codes. Since the proposed CSS codes have
+constituent classical codes and of the same classical rate
+, the quantum rate is given as
+. It can be seen that the proposed codes outperform
+the state-of-the-art codes. In fact , the proposed codes surpass the
+BDD curve which is the limit of the bounded distance decoder,while the other codes fall inside the BDD curve.
+V. C
+ONCLUSION
+We proposed a novel construction method of CSS codes. The
+resulting CSS codes can be viewed as nonbinary LDPC codesover
+. Due to the sparse representation of the parity-
+check matrices, the proposed codes are ef ﬁciently decoded. The
+simulation results over the depolarizing channels show that theproposed codes outperform the other quantum error correctingcodes which exhibited the best decoding performance so far.The error ﬂoors are lowered by increasing the size of the under-
+lying Galois ﬁeld, i.e.,
+.
+ACKNOWLEDGMENT
+Theﬁrst author is grateful to Prof. R. Matsumoto for useful
+discussions. The authors wish to thank the anonymous reviewerfor his or her helpful comments which improved presentation ofthis paper.

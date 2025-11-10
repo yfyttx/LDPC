@@ -1,0 +1,21 @@
+# ninja log v7
+5	615	7844844733118168	CMakeFiles/ldpc_constructor.dir/src/gf2p/gf2p.cpp.obj	b6836aaf27f6ce41
+3	2423	7844844733098162	CMakeFiles/ldpc_constructor.dir/src/main.cpp.obj	d9aef25671611b5d
+7	2463	7844844733148167	CMakeFiles/ldpc_constructor.dir/src/ldpc_codes/binary_codes.cpp.obj	1d28cffcb97c74fc
+12	2501	7844844733188172	CMakeFiles/ldpc_constructor.dir/src/utils/matrix_utils.cpp.obj	3d0279f7371cc604
+10	3026	7844844733168175	CMakeFiles/ldpc_constructor.dir/src/ldpc_codes/nonbinary_codes.cpp.obj	2d7a49059dc70f73
+3027	3129	7844844763332572	ldpc_constructor.exe	1ea4c17a38106ef8
+24	500	7844871254849603	CMakeFiles/ldpc_constructor.dir/src/gf2p/gf2p.cpp.obj	5722dfe3dfa8a1b2
+27	1086	7844871254879575	CMakeFiles/ldpc_constructor.dir/src/ldpc_codes/binary_codes.cpp.obj	d58bd1fae712b205
+33	1164	7844871254944674	CMakeFiles/ldpc_constructor.dir/src/utils/matrix_utils.cpp.obj	cecd08fba76d7172
+30	2151	7844871254914617	CMakeFiles/ldpc_constructor.dir/src/ldpc_codes/nonbinary_codes.cpp.obj	d5ce55c39d936afa
+4	851	7844871857726789	CMakeFiles/ldpc_constructor.dir/src/main.cpp.obj	1240ff22a27e71d2
+7	880	7844871857756796	CMakeFiles/ldpc_constructor.dir/src/utils/matrix_utils.cpp.obj	cecd08fba76d7172
+880	988	7844871866490698	ldpc_constructor.exe	2b1798306e7c0eb1
+17	780	7844872415334155	CMakeFiles/ldpc_constructor.dir/src/main.cpp.obj	1240ff22a27e71d2
+780	890	7844872422961234	ldpc_constructor.exe	2b1798306e7c0eb1
+3	804	7844879300924414	CMakeFiles/ldpc_constructor.dir/src/main.cpp.obj	1240ff22a27e71d2
+6	850	7844879300954386	CMakeFiles/ldpc_constructor.dir/src/utils/matrix_utils.cpp.obj	cecd08fba76d7172
+850	954	7844879309393166	ldpc_constructor.exe	2b1798306e7c0eb1
+20	954	7844881355050310	CMakeFiles/ldpc_constructor.dir/src/utils/matrix_utils.cpp.obj	cecd08fba76d7172
+954	1054	7844881364396769	ldpc_constructor.exe	2b1798306e7c0eb1

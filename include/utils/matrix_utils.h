@@ -15,6 +15,11 @@ bool verifyNonbinaryOrthogonality(
     const Eigen::MatrixXi& H_delta,
     const GF2p& gf);
 
+bool writeUbsAlistNonBinary(
+    const Eigen::MatrixXi& H_values,
+    int gfOrder,
+    const std::string& filepath);
+
 void printNonbinaryMatrix(
     const Eigen::MatrixXi& mat,
     const std::string& name,

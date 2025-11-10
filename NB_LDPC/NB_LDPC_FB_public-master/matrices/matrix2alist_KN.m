@@ -1,53 +1,74 @@
 % matrix2alist_KN
 % matrix to alisk with KN format
 
-clear all;
-clc;
+function matrix2alist_KN(H, gfOrder, output_filename)
+% MATRIX2ALIST_KN  Convert a parity-check matrix to KN-format alist file.
+%
+%   matrix2alist_KN(H, gfOrder, output_filename)
+%
+%   Inputs:
+%       H               - parity-check matrix of size MxN with GF elements
+%       gfOrder         - order of the Galois Field (e.g., 16 for GF(16))
+%       output_filename - target alist output file
 
-load matrix.mat;
-
-fileID =fopen('alist_KN.txt','w');
-fclose(fileID);
-
-H=matrix;
-
-H_bin = H;
-H_bin( H > -1 ) = 1;
-H_bin( H<0 ) = 0;
-
-
-[M,N] = size(H);
-dc = sum(H_bin,2);
-dv = sum(H_bin,1);
-dcmax = max(dc);
-dvmax = max(dv);
-
-[nlist,~] = find(H_bin);
-[mlist,~] = find(H_bin');
-
-GF=64;
-
-%write in a file named alist_KN.txt
-     fileID =fopen('alist_KN.txt','at');    
-      fprintf(fileID,'%d %d %d \n ',N,M,GF);
-    for i=1:N
-        fprintf(fileID,'%d ',dv(i));
+    arguments
+        H double
+        gfOrder (1, 1) double {mustBePositive}
+        output_filename (1, :) char
     end
-    fprintf(fileID,' \n ');
-    for i=1:M
-        fprintf(fileID,'%d ',dc(i));
+
+    H_bin = (H ~= 0);
+    [M, N] = size(H);
+
+    dv = sum(H_bin, 1); % column weights
+    dc = sum(H_bin, 2).'; % row weights as row vector
+
+    cmax = max([dv, 0]);
+    rmax = max([dc, 0]);
+
+    fid = fopen(output_filename, 'w');
+    if fid == -1
+        error('matrix2alist_KN:IOError', 'Cannot open %s for writing.', output_filename);
     end
-    fprintf(fileID,' \n ');
-    
-    k=0;
-    for i=1:M
-        for j=1:dc(i)
-            fprintf(fileID,'%d ',mlist(k + j ));
-            fprintf(fileID,'%d ',H( i, mlist(k + j  )));
+    cleaner = onCleanup(@() fclose(fid));
+
+    fprintf(fid, '%d %d %d\n', N, M, gfOrder);
+    fprintf(fid, '%d %d\n', cmax, rmax);
+
+    fprintf(fid, '%d ', dv);
+    fprintf(fid, '\n');
+
+    fprintf(fid, '%d ', dc);
+    fprintf(fid, '\n');
+
+    % Column placeholder section (ignored by NB decoder, but required by format)
+    for col = 1:N
+        for k = 1:cmax
+            fprintf(fid, '0 0');
+            if k < cmax
+                fprintf(fid, ' ');
+            end
         end
-        k=k+dc(i);
-        fprintf(fileID,' \n ');
+        fprintf(fid, '\n');
     end
 
-    
-      fclose(fileID);  
+    % Row section with (column index, GF symbol) pairs
+    for row = 1:M
+        cols = find(H_bin(row, :));
+        symbols = H(row, cols);
+        for k = 1:numel(cols)
+            fprintf(fid, '%d %d', cols(k), symbols(k));
+            if k < rmax
+                fprintf(fid, ' ');
+            end
+        end
+        % Fill remaining entries with zeros
+        for k = numel(cols)+1:rmax
+            fprintf(fid, '0 0');
+            if k < rmax
+                fprintf(fid, ' ');
+            end
+        end
+        fprintf(fid, '\n');
+    end
+end  

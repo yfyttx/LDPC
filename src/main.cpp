@@ -125,11 +125,24 @@ int main() {
         
         // --- 核心修改在这里 ---
         // 保存 *指数* 矩阵 (H_gamma_logs) 到文件
-        // (请确保路径正确)
-        saveMatrixToFile(H_gamma_logs, "C:\\Users\\yfyttx\\Documents\\code\\quantum computing\\NB_LDPC\\NB-LDPC-toolbox-master\\H_gamma.txt");
+        // (写入到当前工作目录，即构建目录)
+        saveMatrixToFile(H_gamma_logs, "./H_gamma.txt");
         
         // 保存 *指数* 矩阵 (H_delta_logs) 到文件
-        saveMatrixToFile(H_delta_logs, "C:\\Users\\yfyttx\\Documents\\code\\quantum computing\\NB_LDPC\\NB-LDPC-toolbox-master\\H_delta.txt");
+        saveMatrixToFile(H_delta_logs, "./H_delta.txt");
+
+        // 额外导出：将非二进制矩阵（以多项式值编码）导出为 UBS alist（NB_LDPC 可直接读取）
+        int GF_order = gf.getMod() + 1; // 2^p
+        bool ok1 = writeUbsAlistNonBinary(
+            H_gamma_vals,
+            GF_order,
+            "../NB_LDPC/NB_LDPC_FB_public-master/matrices/H_gamma_nb.alist");
+        bool ok2 = writeUbsAlistNonBinary(
+            H_delta_vals,
+            GF_order,
+            "../NB_LDPC/NB_LDPC_FB_public-master/matrices/H_delta_nb.alist");
+        std::cout << "Export UBS alist for H_gamma: " << (ok1 ? "OK" : "FAIL") << std::endl;
+        std::cout << "Export UBS alist for H_delta: " << (ok2 ? "OK" : "FAIL") << std::endl;
         
     } catch (const std::exception& e) {
         std::cerr << "\nAn error occurred: " << e.what() << std::endl;

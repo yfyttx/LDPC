@@ -4,6 +4,7 @@
 //#include <utility>
 //#include <exception>
 #include <memory>
+#include <cstring>
 #include <mex.h>
 #include <matrix.h>
 

@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/Users/yfyttx/Documents/code/quantum computing/build/cmake_install.cmake"
+		"C:/Users/yfyttx/Projects/LDPC/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }
